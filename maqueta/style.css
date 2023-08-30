@@ -432,3 +432,47 @@ textarea:focus {
     }
   }
 }
+
+.button {
+  background-color: rgb(0, 88, 219);
+  margin-right: 0.3em;
+  padding: 0.1em 0.4em;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button img {
+  filter: invert();
+}
+
+.button-delete {
+  background-color: rgb(253, 13, 13);
+}
+
+.footer-2 {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.footer_btn {
+  padding: 0.5em 1em;
+  background-color: #2f35f5;
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.footer-2 .footer_btn:nth-child(3) {
+  background-color: rgb(8, 198, 8);
+}
+
+.footer-2 .footer_btn:nth-child(4) {
+  background-color: rgb(8, 138, 198);
+}
+
+.footer-2 .footer_btn:nth-child(5) {
+  background-color: rgb(198, 8, 8);
+}

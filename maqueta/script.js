@@ -12,7 +12,6 @@ const input = document.querySelector('new-todo')
 // const category = document.querySelectorAll('#category');
 // const saveBtn = document.querySelectorAll('.saveBtn');
 // const cancelBtn = document.querySelectorAll('.cancelBtn');
-
 function createTask(taskText) {
   const taskElement = document.createElement('li');
 

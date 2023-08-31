@@ -34,13 +34,13 @@ function render() {
     const iconEdit = document.createElement('img');
     iconEdit.classList.add('icon-edit');
     buttonEdit.classList.add('button');
-    iconEdit.setAttribute('src', 'pencil-square.svg');
+    iconEdit.setAttribute('src', '/assets/img/pencil-square.svg');
 
     const buttonBorrar = document.createElement('button');
     const iconBorrar = document.createElement('img');
     iconBorrar.classList.add('icon-borrar');
     buttonBorrar.classList.add('button', 'button-delete');
-    iconBorrar.setAttribute('src', 'trash-fill.svg');
+    iconBorrar.setAttribute('src', '/assets/img/trash-fill.svg');
 
     buttonBorrar.addEventListener('click', () => {
       // alert('eliminar ' + i)

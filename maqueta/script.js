@@ -1,5 +1,7 @@
 const todoList = document.querySelectorAll('.todo-list');
-const input = document.querySelector('new-todo')
+const input = document.querySelector('.new-todo')
+
+const tareas = []
 // const footer = document.querySelector('.footer');
 // const toogle = document.querySelectorAll('.toogle');
 // const deleteBtn = document.getElementById('borrarBtn')
@@ -29,14 +31,14 @@ function createTask(taskText) {
   const buttonEdit = document.createElement('button');
   const iconEdit = document.createElement('img');
   iconEdit.classList.add('icon-edit');
-  buttonEdit.classList.add('button-edit');
-  iconEdit.setAttribute('src', 'edit.svg');
+  buttonEdit.classList.add('button');
+  iconEdit.setAttribute('src', 'pencil-square.svg');
 
   const buttonBorrar = document.createElement('button');
   const iconBorrar = document.createElement('img');
   iconBorrar.classList.add('icon-borrar');
-  buttonBorrar.classList.add('button-borrar');
-  iconBorrar.setAttribute('src', 'close.svg');
+  buttonBorrar.classList.add('button', 'button-delete');
+  iconBorrar.setAttribute('src', 'trash-fill.svg');
 
   buttonEdit.appendChild(iconEdit);
   taskElement.appendChild(buttonEdit);
@@ -44,10 +46,12 @@ function createTask(taskText) {
   taskElement.appendChild(buttonBorrar);
 }
 
-document.querySelector('.new-todo').addEventListener('keyup', (event) => {
+input.addEventListener('keyup', (event) => {
   if (event.key === 'Enter' && event.target.value.length > 0) {
     const taskText = event.target.value;
     createTask(taskText);
     event.target.value = '';
+    tareas.push(taskText)
+    console.log(tareas)
   }
 });

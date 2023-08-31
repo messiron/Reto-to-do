@@ -23,7 +23,7 @@ button {
 body {
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4em;
-  background: #f5f5f5;
+  background: #a36666;
   color: #111111;
   min-width: 230px;
   max-width: 550px;
@@ -191,7 +191,7 @@ body {
   height: 40px;
   margin: auto 0;
   font-size: 30px;
-  color: #cc9a9a;
+  color: #d38787;
   margin-bottom: 11px;
   transition: color 0.2s ease-out;
 }
@@ -221,7 +221,7 @@ body {
   height: 20px;
   text-align: center;
   font-size: 15px;
-  border-top: 1px solid #e6e6e6;
+  border-top: 1px solid #e0dadac2;
 }
 
 .footer:before {
@@ -431,4 +431,48 @@ textarea:focus {
       height: 40px;
     }
   }
+}
+
+.button {
+  background-color: rgb(0, 88, 219);
+  margin-right: 0.3em;
+  padding: 0.1em 0.4em;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button img {
+  filter: invert();
+}
+
+.button-delete {
+  background-color: rgb(253, 13, 13);
+}
+
+.footer-2 {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.footer_btn {
+  padding: 0.5em 1em;
+  background-color: #2f35f5;
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.footer-2 .footer_btn:nth-child(3) {
+  background-color: rgb(8, 198, 8);
+}
+
+.footer-2 .footer_btn:nth-child(4) {
+  background-color: rgb(8, 138, 198);
+}
+
+.footer-2 .footer_btn:nth-child(5) {
+  background-color: rgb(198, 8, 8);
 }

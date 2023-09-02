@@ -42,9 +42,11 @@ function createTask() {
     checkbox.type = 'checkbox';
     checkbox.classList.add('task-checkbox');
 
+ 
     const prioridadDiv = document.createElement('div')
+    prioridadDiv.classList.add('task-prioridad');
     const categoriaDiv = document.createElement('div')
-
+    categoriaDiv.classList.add('task-categoria');
     prioridadDiv.textContent = 'Prioridad'
     categoriaDiv.textContent = 'Categoria'
 
@@ -117,9 +119,10 @@ function createTask() {
 
     todoList.appendChild(taskElement);
 
-    const buttonEdit = createButton('edit.svg', 'icon-edit', 'button-edit');
-    const buttonDelete = createButton('close.svg', 'icon-borrar', 'button-borrar');
-
+    const buttonEdit = createButton('assets/img/pencil-square.svg', 'icon-edit', 'button-edit');
+    buttonEdit.classList.add('buton-edit');
+    const buttonDelete = createButton('assets/img/trash-fill.svg', 'icon-borrar', 'button-borrar');
+    buttonDelete.classList.add('button-delete');
     buttonDelete.addEventListener('click', () => {
       todoList.removeChild(taskElement);
       borrar(i)
@@ -144,6 +147,7 @@ function createTask() {
 
     taskElement.appendChild(prioridadDiv)
     taskElement.appendChild(categoriaDiv)
+
   })
 }
 
@@ -171,4 +175,3 @@ document.querySelector('.new-todo').addEventListener('keyup', (event) => {
     localStorage.setItem('tareas', JSON.stringify(tareas))
   }
 });
-

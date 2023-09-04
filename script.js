@@ -116,6 +116,16 @@ function createTask() {
     taskTextElement.innerText = e.titulo;
     taskTextElement.classList.add('task-text');
     taskElement.appendChild(checkbox);
+
+
+// Agrega un oyente de evento al checkbox para marcar como completada o no completada.
+checkbox.addEventListener('change', () => {
+  
+  e.completada = checkbox.checked; // Marca la tarea como completada si el checkbox está marcado.
+  localStorage.setItem('tareas', JSON.stringify(tareas)); // Actualiza los datos en localStorage.
+});
+
+
     taskElement.appendChild(taskTextElement);
 
     // Agrega los botones de edición y eliminación para cada tarea.
@@ -182,3 +192,30 @@ document.querySelector('.new-todo').addEventListener('keyup', (event) => {
     localStorage.setItem('tareas', JSON.stringify(tareas));
   }
 });
+
+
+
+// Agrega un oyente de eventos para el botón "Mostrar Completadas".
+const completadasButton = document.getElementById('completadas-button');
+
+completadasButton.addEventListener('click', () => {
+  const tareasCompletadas = tareas.filter((tarea) => tarea.completada);
+  mostrarTareasCompletadas(tareasCompletadas);
+});
+
+// Función para mostrar las tareas completadas en una lista aparte.
+function mostrarTareasCompletadas(tareasCompletadas) {
+  const completadasList = document.querySelector('.todo-list');
+
+  // Elimina todos los elementos hijos de '.completadas-list' para evitar duplicaciones.
+  while (completadasList.children.length > 0) {
+    completadasList.lastChild.remove();
+  }
+
+  // Recorre las tareas completadas y crea elementos de lista para cada una.
+  tareasCompletadas.forEach((tarea, i) => {
+    const completadaElement = document.createElement('li');
+    completadaElement.textContent = tarea.titulo;
+    completadasList.appendChild(completadaElement);
+  });
+}

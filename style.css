@@ -23,7 +23,7 @@ button {
 body {
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4em;
-  background: #a36666;
+  background: #cfcbcb;
   color: #111111;
   min-width: 230px;
   max-width: 550px;
@@ -354,6 +354,17 @@ html .clear-completed:active {
 .clear-completed:hover {
   text-decoration: underline;
 }
+
+.footer_btn:hover{
+  background-color: hsl(182, 66%, 35%);
+  box-shadow:5px 5px 5px 5px #68919b;
+  color: white;
+  
+}
+
+
+
+
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   .todo-list li .toggle {

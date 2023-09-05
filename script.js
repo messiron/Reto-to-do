@@ -1,4 +1,4 @@
-// Inicializa la variable 'tareas' a partir de los datos en localStorage o un arreglo vacío si no hay datos.
+const todosButton = document.querySelector('.footer_btn.todos')
 let tareas = JSON.parse(localStorage.getItem('tareas')) ?? [];
 
 // Si hay tareas almacenadas, muestra la lista de tareas en la página.
@@ -30,6 +30,8 @@ function borrar(index) {
   localStorage.setItem('tareas', JSON.stringify(tareas));
 }
 
+let filtroActual = 'todos'
+
 // Función para mostrar las tareas en la página web.
 function createTask() {
   const todoList = document.querySelector('.todo-list');
@@ -41,6 +43,8 @@ function createTask() {
 
   // Recorre todas las tareas en 'tareas' y crea elementos de lista para cada una.
   tareas.forEach((e, i) => {
+
+
     const taskElement = document.createElement('li');
     taskElement.classList.add('task-item');
 
@@ -116,6 +120,15 @@ function createTask() {
     taskTextElement.innerText = e.titulo;
     taskTextElement.classList.add('task-text');
     taskElement.appendChild(checkbox);
+
+    checkbox.checked = e.completada
+// Agrega un oyente de evento al checkbox para marcar como completada o no completada.
+checkbox.addEventListener('change', () => {  
+  e.completada = checkbox.checked; // Marca la tarea como completada si el checkbox está marcado.
+  localStorage.setItem('tareas', JSON.stringify(tareas)); // Actualiza los datos en localStorage.
+});
+
+
     taskElement.appendChild(taskTextElement);
 
     // Agrega los botones de edición y eliminación para cada tarea.
@@ -182,3 +195,95 @@ document.querySelector('.new-todo').addEventListener('keyup', (event) => {
     localStorage.setItem('tareas', JSON.stringify(tareas));
   }
 });
+
+
+
+// Agrega un oyente de eventos para el botón "Mostrar Completadas".
+const completadasButton = document.getElementById('completadas-button');
+
+completadasButton.addEventListener('click', () => {
+  const tareasCompletadas = tareas.filter((tarea) => tarea.completada);
+  mostrarTareasCompletadas(tareasCompletadas);
+});
+
+// Función para mostrar las tareas completadas en una lista aparte.
+function mostrarTareasCompletadas(tareasCompletadas) {
+  const completadasList = document.querySelector('.todo-list');
+
+  // Elimina todos los elementos hijos de '.completadas-list' para evitar duplicaciones.
+  while (completadasList.children.length > 0) {
+    completadasList.lastChild.remove();
+  }
+
+  // Recorre las tareas completadas y crea elementos de lista para cada una.
+  tareasCompletadas.forEach((tarea, i) => {
+    const completadaElement = document.createElement('li');
+    completadaElement.classList.add('task-item'); // Agregar la clase 'task-item' para mantener el formato.
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.classList.add('task-checkbox');
+    checkbox.checked = true; // Marcar como completada.
+
+    const prioridadDiv = document.createElement('div');
+    prioridadDiv.classList.add('task-prioridad');
+    prioridadDiv.textContent = 'Prioridad: ' + tarea.prioridad;
+
+    const categoriaDiv = document.createElement('div');
+    categoriaDiv.classList.add('task-categoria');
+    categoriaDiv.textContent = 'Categoría: ' + tarea.categoria;
+
+    // Crea un elemento de texto para el título de la tarea.
+    const taskTextElement = document.createElement('span');
+    taskTextElement.innerText = tarea.titulo;
+    taskTextElement.classList.add('task-text');
+
+    completadaElement.appendChild(checkbox);
+    completadaElement.appendChild(taskTextElement);
+    completadaElement.appendChild(prioridadDiv);
+    completadaElement.appendChild(categoriaDiv);
+
+    completadasList.appendChild(completadaElement);
+    const buttonEdit = createButton('assets/img/pencil-square.svg', 'icon-edit', 'button-edit');
+    buttonEdit.classList.add('buton-edit');
+    const buttonDelete = createButton('assets/img/trash-fill.svg', 'icon-borrar', 'button-borrar');
+    buttonDelete.classList.add('button-delete');
+    buttonDelete.addEventListener('click', () => {
+      completadasList.removeChild(completadaElement);
+      borrar(i);
+    });
+
+    buttonEdit.addEventListener('click', () => {
+      const textElement = completadaElement.querySelector('.task-text');
+      textElement.contentEditable = true;
+      textElement.focus();
+    });
+
+    // Agregar un oyente de evento para guardar cambios al presionar Enter.
+    taskTextElement.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const textElement = event.target;
+        textElement.blur();
+        edit(i, taskTextElement.textContent);
+      }
+    });
+
+    completadaElement.appendChild(buttonEdit);
+    completadaElement.appendChild(buttonDelete);
+
+    completadasList.appendChild(completadaElement);
+  });
+}
+
+
+
+todosButton.addEventListener('click', () => {
+  filtroActual = 'todos'; 
+  createTask(); 
+});
+
+
+
+
+

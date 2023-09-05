@@ -1,5 +1,15 @@
+// Inicializa la variable 'tareas' a partir de los datos en localStorage o un arreglo vacío si no hay datos.
 const todosButton = document.querySelector('.footer_btn.todos')
 let tareas = JSON.parse(localStorage.getItem('tareas')) ?? [];
+const counter = document.querySelector('#counter')
+
+function setCounter()
+{
+  const tareasFiltradas = tareas.filter(e => e.completada !== true)
+  counter.textContent = tareasFiltradas.length
+}
+
+setCounter()
 
 // Si hay tareas almacenadas, muestra la lista de tareas en la página.
 if (tareas.length > 0) {
@@ -28,6 +38,7 @@ function borrar(index) {
 
   // Actualiza los datos en localStorage con la versión actualizada de 'tareas'.
   localStorage.setItem('tareas', JSON.stringify(tareas));
+  setCounter()
 }
 
 let filtroActual = 'todos'
@@ -126,6 +137,7 @@ function createTask() {
 checkbox.addEventListener('change', () => {  
   e.completada = checkbox.checked; // Marca la tarea como completada si el checkbox está marcado.
   localStorage.setItem('tareas', JSON.stringify(tareas)); // Actualiza los datos en localStorage.
+  setCounter()
 });
 
 
@@ -193,6 +205,7 @@ document.querySelector('.new-todo').addEventListener('keyup', (event) => {
     event.target.value = '';
 
     localStorage.setItem('tareas', JSON.stringify(tareas));
+    setCounter()
   }
 });
 
@@ -203,6 +216,7 @@ const completadasButton = document.getElementById('completadas-button');
 
 completadasButton.addEventListener('click', () => {
   const tareasCompletadas = tareas.filter((tarea) => tarea.completada);
+  tareasCompletadas.classList.add('completed');
   mostrarTareasCompletadas(tareasCompletadas);
 });
 
@@ -282,8 +296,3 @@ todosButton.addEventListener('click', () => {
   filtroActual = 'todos'; 
   createTask(); 
 });
-
-
-
-
-

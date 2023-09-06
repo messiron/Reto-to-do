@@ -216,7 +216,6 @@ const completadasButton = document.getElementById('completadas-button');
 
 completadasButton.addEventListener('click', () => {
   const tareasCompletadas = tareas.filter((tarea) => tarea.completada);
-  tareasCompletadas.classList.add('completed');
   mostrarTareasCompletadas(tareasCompletadas);
 });
 

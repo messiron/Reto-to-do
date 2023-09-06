@@ -2,14 +2,17 @@
 const todosButton = document.querySelector('.footer_btn.todos')
 let tareas = JSON.parse(localStorage.getItem('tareas')) ?? [];
 const counter = document.querySelector('#counter')
-
+const borrarCompletados= document.getElementById('borrarCompletados')
+// contador 
 function setCounter()
 {
+  console.log(tareas)
   const tareasFiltradas = tareas.filter(e => e.completada !== true)
   counter.textContent = tareasFiltradas.length
 }
 
 setCounter()
+
 
 // Si hay tareas almacenadas, muestra la lista de tareas en la página.
 if (tareas.length > 0) {
@@ -295,3 +298,13 @@ todosButton.addEventListener('click', () => {
   filtroActual = 'todos'; 
   createTask(); 
 });
+// funcion para eliminar tareas completadas 
+borrarCompletados.addEventListener('click', ()=>{
+  const borrarcomp = tareas.filter((tarea) => !tarea.completada)
+  tareas = borrarcomp;
+
+  localStorage.setItem('tareas', JSON.stringify(tareas));
+  createTask();
+}); 
+
+

@@ -38,6 +38,8 @@ body {
 }
 
 .todoApp {
+  width: 600px;
+  word-wrap: break-word;
   border-radius: 20px;
   background: #fff;
   padding: 20px;
@@ -65,13 +67,14 @@ body {
 }
 
 .todoApp h1 {
+  font-family: cursive;
   position: absolute;
   top: -140px;
   width: 100%;
   font-size: 80px;
   font-weight: 200;
   text-align: center;
-  color: #b83f45;
+  color: #200095;
   -webkit-text-rendering: optimizeLegibility;
   -moz-text-rendering: optimizeLegibility;
   text-rendering: optimizeLegibility;
@@ -281,13 +284,13 @@ body {
   margin-bottom: -1px;
 }
 
-.footer {
-  padding: 10px 15px;
+/* .footer {
+  padding: 10px ;
   height: 20px;
   text-align: center;
   font-size: 15px;
   border-top: 1px solid #e0dadac2;
-}
+} */
 
 .footer:before {
   content: '';
@@ -540,6 +543,7 @@ textarea:focus {
   color: rgb(255, 255, 255);
   cursor: pointer;
 }
+
 
 .footer-2 .footer_btn:nth-child(3) {
   background-color: rgb(8, 198, 8);

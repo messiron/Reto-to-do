@@ -556,3 +556,14 @@ textarea:focus {
 .footer-2 .footer_btn:nth-child(5) {
   background-color: rgb(198, 8, 8);
 }
+
+.task-text {
+  border: none;
+  font-size: 1em;
+  width: 200px;
+  color: rgb(247, 51, 51);
+}
+
+.task-text:disabled {
+  color: black;
+}

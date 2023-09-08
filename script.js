@@ -2,10 +2,10 @@
 const todosButton = document.querySelector('.footer_btn.todos')
 let tareas = JSON.parse(localStorage.getItem('tareas')) ?? [];
 const counter = document.querySelector('#counter')
-const borrarCompletados= document.getElementById('borrarCompletados')
+const borrarCompletados = document.getElementById('borrarCompletados')
+const pendientes = document.querySelector('#pendientes')
 // contador 
-function setCounter()
-{
+function setCounter() {
   console.log(tareas)
   const tareasFiltradas = tareas.filter(e => e.completada !== true)
   counter.textContent = tareasFiltradas.length
@@ -16,7 +16,7 @@ setCounter()
 
 // Si hay tareas almacenadas, muestra la lista de tareas en la página.
 if (tareas.length > 0) {
-  createTask();
+  createTask(tareas);
 }
 
 // Función para editar el título de una tarea en el arreglo 'tareas' según su índice.
@@ -42,12 +42,13 @@ function borrar(index) {
   // Actualiza los datos en localStorage con la versión actualizada de 'tareas'.
   localStorage.setItem('tareas', JSON.stringify(tareas));
   setCounter()
+  createTask(tareas)
 }
 
-let filtroActual = 'todos'
+let filtroActual = 'todas'
 
 // Función para mostrar las tareas en la página web.
-function createTask() {
+function createTask(array) {
   const todoList = document.querySelector('.todo-list');
 
   // Elimina todos los elementos hijos de '.todo-list' para evitar duplicaciones.
@@ -56,7 +57,7 @@ function createTask() {
   }
 
   // Recorre todas las tareas en 'tareas' y crea elementos de lista para cada una.
-  tareas.forEach((e, i) => {
+  array.forEach((e, i) => {
 
 
     const taskElement = document.createElement('li');
@@ -130,47 +131,71 @@ function createTask() {
     }
 
     // Crea un elemento de texto para el título de la tarea.
-    const taskTextElement = document.createElement('span');
-    taskTextElement.innerText = e.titulo;
+    const divText = document.createElement('div') 
+    const taskTextElement = document.createElement('input');
+    const buttonsDiv = document.createElement('div')
+    const btnConfirm = createButton('./assets/img/check-circle-fill.svg', 'icon-edit', 'button-edit')
+    const btnClose = createButton('./assets/img/x-circle-fill.svg', 'icon-edit', 'button-borrar')
+
+    taskTextElement.setAttribute('type', 'text')
+    taskTextElement.disabled = true
+    taskTextElement.value = e.titulo;
     taskTextElement.classList.add('task-text');
     taskElement.appendChild(checkbox);
 
     checkbox.checked = e.completada
-// Agrega un oyente de evento al checkbox para marcar como completada o no completada.
-checkbox.addEventListener('change', () => {  
-  e.completada = checkbox.checked; // Marca la tarea como completada si el checkbox está marcado.
-  localStorage.setItem('tareas', JSON.stringify(tareas)); // Actualiza los datos en localStorage.
-  setCounter()
-});
+    // Agrega un oyente de evento al checkbox para marcar como completada o no completada.
+    checkbox.addEventListener('change', () => {
+      e.completada = checkbox.checked; // Marca la tarea como completada si el checkbox está marcado.
+      localStorage.setItem('tareas', JSON.stringify(tareas)); // Actualiza los datos en localStorage.
+      setCounter()
+    });
 
+    buttonsDiv.appendChild(btnConfirm)
+    buttonsDiv.appendChild(btnClose)
+    buttonsDiv.hidden = true
 
-    taskElement.appendChild(taskTextElement);
+    divText.appendChild(taskTextElement)
+    taskElement.appendChild(divText);
+    taskElement.appendChild(buttonsDiv)
 
     // Agrega los botones de edición y eliminación para cada tarea.
     const buttonEdit = createButton('assets/img/pencil-square.svg', 'icon-edit', 'button-edit');
     buttonEdit.classList.add('buton-edit');
     const buttonDelete = createButton('assets/img/trash-fill.svg', 'icon-borrar', 'button-borrar');
     buttonDelete.classList.add('button-delete');
+    
     buttonDelete.addEventListener('click', () => {
-      todoList.removeChild(taskElement);
+      // todoList.removeChild(taskElement);
       borrar(i);
     });
 
     buttonEdit.addEventListener('click', () => {
-      const textElement = taskElement.querySelector('.task-text');
-      textElement.contentEditable = true;
-      textElement.focus();
+      buttonsDiv.hidden = false
+      taskTextElement.disabled = false
     });
 
+    btnClose.addEventListener('click', () => {
+      taskTextElement.value = e.titulo
+      taskTextElement.disabled = true
+      buttonsDiv.hidden = true
+    })
+
+    btnConfirm.addEventListener('click', () => {
+      taskTextElement.disabled = true
+      buttonsDiv.hidden = true
+      edit(i, taskTextElement.value)
+    })
+
     // Agrega un oyente de evento para guardar cambios al presionar Enter.
-    taskTextElement.addEventListener('keydown', (event) => {
+    /* taskTextElement.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
         const textElement = event.target;
         textElement.blur();
         edit(i, taskTextElement.textContent);
       }
-    });
+    }); */
     taskElement.appendChild(buttonEdit);
     taskElement.appendChild(buttonDelete);
 
@@ -204,7 +229,10 @@ document.querySelector('.new-todo').addEventListener('keyup', (event) => {
     });
 
     // Actualiza la vista y el localStorage con la tarea agregada.
-    createTask();
+    if (filtroActual === 'todas')
+    {
+      createTask(tareas);
+    }
     event.target.value = '';
 
     localStorage.setItem('tareas', JSON.stringify(tareas));
@@ -212,7 +240,10 @@ document.querySelector('.new-todo').addEventListener('keyup', (event) => {
   }
 });
 
-
+pendientes.addEventListener('click', () => {
+  filtroActual = 'pendientes'
+  createTask(tareas.filter(e => e.completada !== true))
+})
 
 // Agrega un oyente de eventos para el botón "Mostrar Completadas".
 const completadasButton = document.getElementById('completadas-button');
@@ -295,16 +326,16 @@ function mostrarTareasCompletadas(tareasCompletadas) {
 
 
 todosButton.addEventListener('click', () => {
-  filtroActual = 'todos'; 
-  createTask(); 
+  filtroActual = 'todos';
+  createTask(tareas);
 });
 // funcion para eliminar tareas completadas 
-borrarCompletados.addEventListener('click', ()=>{
+borrarCompletados.addEventListener('click', () => {
   const borrarcomp = tareas.filter((tarea) => !tarea.completada)
   tareas = borrarcomp;
 
   localStorage.setItem('tareas', JSON.stringify(tareas));
-  createTask();
-}); 
+  createTask(tareas);
+});
 
 

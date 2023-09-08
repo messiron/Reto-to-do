@@ -23,7 +23,7 @@ button {
 body {
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4em;
-  background: #a36666;
+  background: #cfcbcb;
   color: #111111;
   min-width: 230px;
   max-width: 550px;
@@ -38,7 +38,11 @@ body {
 }
 
 .todoApp {
+  width: 600px;
+  word-wrap: break-word;
+  border-radius: 20px;
   background: #fff;
+  padding: 20px;
   margin: 130px 0 40px 0;
   position: relative;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
@@ -63,13 +67,14 @@ body {
 }
 
 .todoApp h1 {
+  font-family: cursive;
   position: absolute;
   top: -140px;
   width: 100%;
   font-size: 80px;
   font-weight: 200;
   text-align: center;
-  color: #b83f45;
+  color: #200095;
   -webkit-text-rendering: optimizeLegibility;
   -moz-text-rendering: optimizeLegibility;
   text-rendering: optimizeLegibility;
@@ -110,6 +115,69 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+.button-borrar {
+  background-color: red;
+  border-radius: 50%;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+.button-borrar:hover {
+  background-color: white;
+  color: #111111;
+}
+.button-edit{
+  background-color: forestgreen;
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.button-edit:hover{
+  background-color: #2f35f5;
+  color: white;
+}
+
+.task-prioridad {
+  font-size: 16px;
+  color: #2f35f5;
+  font-weight: bold;
+}
+
+.task-categoria {
+  font-size: 16px;
+  color: #2f35f5;
+  font-weight: bold;
+}
+.main {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid #e6e6e6;
+}
+
+.todo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.task-content {
+  display: flex;
+  align-items: center;
+}
+
+.task-content select,
+.task-content button {
+  margin-right: 10px; 
 }
 
 .todo-list li {
@@ -216,13 +284,13 @@ body {
   margin-bottom: -1px;
 }
 
-.footer {
-  padding: 10px 15px;
+/* .footer {
+  padding: 10px ;
   height: 20px;
   text-align: center;
   font-size: 15px;
   border-top: 1px solid #e0dadac2;
-}
+} */
 
 .footer:before {
   content: '';
@@ -289,6 +357,17 @@ html .clear-completed:active {
 .clear-completed:hover {
   text-decoration: underline;
 }
+
+.footer_btn:hover{
+  background-color: hsl(182, 66%, 35%);
+  box-shadow:5px 5px 5px 5px #68919b;
+  color: white;
+  
+}
+
+
+
+
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   .todo-list li .toggle {
@@ -465,6 +544,7 @@ textarea:focus {
   cursor: pointer;
 }
 
+
 .footer-2 .footer_btn:nth-child(3) {
   background-color: rgb(8, 198, 8);
 }
@@ -475,4 +555,15 @@ textarea:focus {
 
 .footer-2 .footer_btn:nth-child(5) {
   background-color: rgb(198, 8, 8);
+}
+
+.task-text {
+  border: none;
+  font-size: 1em;
+  width: 200px;
+  color: rgb(247, 51, 51);
+}
+
+.task-text:disabled {
+  color: black;
 }

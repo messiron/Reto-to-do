@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -11,13 +11,13 @@
         <!-- Enlace con los estilos de los iconos editar y eliminar tarea  -->
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-  <title>ToDo-App</title>
+  <title>ToDoApp</title>
 </head>
 
 <body>
   <section class="todoApp">
     <header class="header">
-      <h1>Tareas</h1>
+      <h1 class="titulo">Tareas</h1>
       <input class="new-todo"
              placeholder="¿Qué necesita ser hecho?"
              autofocus />
@@ -26,11 +26,11 @@
       <ul class="todo-list"></ul>
     </section>
     <section class="footer-2">
-      <p>pendiente(s)</p>
-      <button class="footer_btn">Todos</button>
-      <button class="footer_btn">Pendientes</button>
-      <button class="footer_btn">Completados</button>
-      <button class="footer_btn">Borrar completos</button>
+      <p><span id="counter">0</span> pendiente(s)</p>
+      <button class="footer_btn todos">Todos</button>
+      <button class="footer_btn" id="pendientes">Pendientes</button>
+      <button class="footer_btn" id="completadas-button">Completados</button>
+      <button class="footer_btn"id="borrarCompletados">Borrar completos</button>
     </section>
 
     <script src="script.js"></script>
